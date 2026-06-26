@@ -1,68 +1,81 @@
-📚 Personal Library Manager
+# Personal Library Manager
 
-A full-stack web application to track your personal book collection. Search and add books using the OpenLibrary API, organize them into shelves, and keep track of what you're reading.
+A full-stack web application to track your personal book collection. Search and add books using the OpenLibrary API, organize them into shelves, and keep track of what you are reading.
 
-Features
+---
 
+## Features
 
-🔍 Search books by title using the OpenLibrary API — fetches real covers and metadata
-📖 Organize books into three shelves: Currently Reading, Next Up, and Finished
-➕ Add books to any shelf with a single click
-🗑️ Remove books from your library
-💾 Persistent storage with PostgreSQL — your library is saved across sessions
-👤 Multi-user ready database schema — users and books are stored in separate related tables
+- Search books by title using the OpenLibrary API — fetches real covers and metadata
+- Organize books into three shelves: Currently Reading, Next Up, and Finished
+- Add books to any shelf with a single click
+- Remove books from your library
+- Persistent storage with PostgreSQL — your library is saved across sessions
+- Multi-user ready database schema — users and books stored in separate related tables
 
+---
 
-Tech Stack
+## Tech Stack
 
+| Layer    | Technology                  |
+|----------|-----------------------------|
+| Backend  | Node.js, Express.js         |
+| Database | PostgreSQL                  |
+| Frontend | HTML, CSS, JavaScript       |
+| API      | OpenLibrary API             |
 
-Backend: Node.js, Express.js
-Database: PostgreSQL
-Frontend: HTML, CSS, JavaScript
-External API: OpenLibrary API
+---
 
+## Database Schema
 
-Database Schema
+### users
 
-users
+| Column | Type    | Description |
+|--------|---------|-------------|
+| id     | integer | Primary key |
+| name   | text    | User name   |
 
-ColumnTypeDescriptionidintegerPrimary keynametextUser's name
+### books
 
-books
+| Column  | Type    | Description                            |
+|---------|---------|----------------------------------------|
+| id      | integer | Primary key                            |
+| name    | text    | Book title                             |
+| userid  | integer | Foreign key references users(id)       |
+| coverid | text    | OpenLibrary cover ID for book cover    |
+| status  | text    | current, next, or finished             |
+| author  | text    | Author name                            |
 
-ColumnTypeDescriptionidintegerPrimary keynametextBook titleuseridintegerForeign key → users(id)coveridtextOpenLibrary cover ID for fetching cover imagestatustextcurrent, next, or finishedauthortextAuthor name
+---
 
-Getting Started
+## Getting Started
 
-Prerequisites
+### Prerequisites
 
+- Node.js installed
+- PostgreSQL installed and running
 
-Node.js installed
-PostgreSQL installed and running
+### Installation
 
+**1. Clone the repository**
 
-Installation
-
-
-Clone the repository
-
-
-bashgit clone https://github.com/yourusername/book-notes.git
+```bash
+git clone https://github.com/yourusername/book-notes.git
 cd book-notes
+```
 
+**2. Install dependencies**
 
-Install dependencies
+```bash
+npm install
+```
 
+**3. Set up the database**
 
-bashnpm install
+Open PostgreSQL and run the following:
 
-
-Set up the database
-
-
-Open PostgreSQL and create the database and tables:
-
-sqlCREATE DATABASE booknotes;
+```sql
+CREATE DATABASE booknotes;
 
 \c booknotes
 
@@ -80,55 +93,59 @@ CREATE TABLE books (
   author TEXT
 );
 
--- Insert a default user
 INSERT INTO users (name) VALUES ('Your Name');
+```
 
+**4. Update database credentials**
 
-Update the database connection in your main server file with your PostgreSQL credentials
-Run the app
+In your main server file, update the PostgreSQL connection with your local credentials.
 
+**5. Start the server**
 
-bashnode index.js
+```bash
+node index.js
+```
 
+**6. Open in browser**
 
-Open your browser and go to
-
-
+```
 http://localhost:3000
+```
 
-Screenshots
+---
 
-Home — Bookshelves
+## Screenshots
 
+### Bookshelves View
 <img width="2557" height="1239" alt="image" src="https://github.com/user-attachments/assets/0389f16e-af8a-410f-9fbf-b342cfac8523" />
 
-
-Book Detail on Hover
-
+### Book Detail on Hover
 <img width="2558" height="1236" alt="image" src="https://github.com/user-attachments/assets/2712972b-4669-413b-ba35-d4067b4ed6c1" />
 
 
-API Used
+---
 
-This project uses the OpenLibrary Covers API to fetch book cover images using the cover ID stored in the database.
+## How It Works
 
-Example:
+1. Search for a book by title in the search bar
+2. The app fetches matching results from the OpenLibrary API
+3. Select the book and choose which shelf to add it to
+4. The book is saved to PostgreSQL and appears on your shelf
+5. Hover over a book to see details or delete it
 
-https://covers.openlibrary.org/b/id/{coverid}-M.jpg
+---
 
-Future Improvements
+## Future Improvements
 
+- Full multi-user support with profile switching
+- Search within your own library
+- Reading progress tracker
+- Book ratings and personal notes
 
- Full multi-user support with profile switching
- Search within your own library
- Reading progress tracker
- Book ratings and personal notes
+---
 
+## Author
 
-Author
-
-Md. Inzemam Khan
-
+**Md. Inzemam Khan**
 B.Tech ECE, NIT Durgapur
-
-GitHub • Email
+kinzemam12@gmail.com
