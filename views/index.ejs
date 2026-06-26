@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Pompiere&family=Ribeye+Marrow&family=Viaoda+Libre&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="header d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;"> <a href="/"
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> <svg
+                class="bi pe-none me-2" width="40" height="32" aria-hidden="true">
+                <use xlink:href="#bootstrap"></use>
+            </svg> <span class="fs-4">
+                <%=user%>'s Library
+            </span> </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item"> <a href="#" class="nav-link active" aria-current="page"> <img height="30" width="30"
+                        src="/img/home.svg" alt="" srcset="">
+                    Home
+                </a> </li>
+            <li> <a href="#" class="nav-link link-body-emphasis"> <img height="30" class="icon" width="30"
+                        src="/img/library.svg" alt="" srcset="">
+                    My Library
+                </a> </li>
+        </ul>
+        <hr>
+        <div class="dropdown"> <a href="#"
+                class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false"> <img src="/img/1.jpg" alt="" width="32" height="32"
+                    class="rounded-circle me-2"> <strong>
+                    <%=user%>
+                </strong> </a>
+            <ul class="dropdown-menu text-small shadow">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main flex-center">
+        <div class="inner-box mx-4 px-5">
+            <div class="rack " id="rack-1">
+                <div class="rack-title lead pt-3 px-3 mb-4">
+                    Currently Reading
+                </div>
+
+                <div class="books px-5">
+                    <div class="add-book" style="width: 79px;">
+                        <div class="flex-center">
+                            <button class="btn my-btn add-btn" id="" data-section="current"><img src="/img/add.svg"
+                                    height="35" alt=""></button>
+                        </div>
+                    </div>
+                    <% if(locals.c){ %>
+
+                        <% c.forEach((book)=>{%>
+                            <div class="book">
+                                <img class="hide" id="next<%=book.id %>"
+                                    src="https://covers.openlibrary.org/b/id/<%=book.coverid%>-M.jpg" height="110"
+                                    alt="">
+                                <div class="card">
+                                    <%=book.name %>
+                                    <p>- <%=book.author%></p>
+                                    <form action="/del" method="post">
+                                        <input type="hidden" name="bookid" value="<%=book.id %>">
+                                        <input type="submit" value="🗑️"></form>
+                                </div>
+
+                            </div>
+                            <% }) %>
+                                <% } %>
+
+                </div>
+                <div class="panel">
+
+                </div>
+
+
+            </div>
+            <div class="rack" id="rack-2">
+                <div class="rack-title mb-4 lead pt-3 px-3">
+                    Next Up
+                </div>
+
+                <div class="books px-5">
+                    <div class="add-book" style="width: 79px;">
+                        <div class="flex-center">
+                            <button class="btn my-btn add-btn" id="" data-section="next"><img src="/img/add.svg"
+                                    height="35" alt=""></button>
+                        </div>
+                    </div>
+                    <% if(locals.n){ %>
+
+                        <% n.forEach((book)=>{%>
+                            <div class="book">
+                                <img class="hide" id="next<%=book.id %>"
+                                    src="https://covers.openlibrary.org/b/id/<%=book.coverid%>-M.jpg" height="110"
+                                    alt="">
+                                <div class="card">
+                                    <%=book.name %>
+                                    <p>- <%=book.author%></p>
+                                    <form action="/del" method="post">
+                                        <input type="hidden" name="bookid" value="<%=book.id %>">
+                                        <input type="submit" value="🗑️"></form>
+                                </div>
+
+                            </div>
+
+
+                            <% }) %>
+                                <% } %>
+                </div>
+                <div class="panel">
+
+                </div>
+
+            </div>
+            <div class="rack" id="rack-3">
+                <div class="rack-title mb-4 lead pt-3 px-3">
+                    Finished
+                </div>
+
+                <div class="books px-5">
+                    <div class="add-book" style="width: 79px;">
+                        <div class="flex-center">
+                            <button class="btn my-btn add-btn" id="finished" data-section="finished"><img
+                                    src="/img/add.svg" height="35" alt=""></button>
+                        </div>
+                    </div>
+                    <% if(locals.f){ %>
+
+                        <% f.forEach((book)=>{%>
+                            <div class="book">
+                                <img class="hide" id="next<%=book.id %>"
+                                    src="https://covers.openlibrary.org/b/id/<%=book.coverid%>-M.jpg" height="110"
+                                    alt="">
+                                <div class="card">
+                                    <%=book.name %>
+                                    <p>- <%=book.author%></p>
+                                    <form action="/del" method="post">
+                                        <input type="hidden" name="bookid" value="<%=book.id %>">
+                                        <input type="submit" value="🗑️"></form>
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% } %>
+                </div>
+                <div class="panel">
+
+                </div>
+
+            </div>
+            <div class="add-form p-5 remove">
+                <div class="row">
+                    <div class="h1 mb-5 col-10">
+                        📚 Add New Book
+                    </div>
+                    <div class="cross col-2 text-right">
+                        <button id="cross-btn" class="btn my-btn"><img src="/img/cancel.svg" height="32"
+                                alt=""></button>
+                    </div>
+                </div>
+
+                <form action="/add" method="post">
+                    <input type="hidden" id="section" name="section">
+                    <div class="mb-3">
+                        <label for="bookName" class="form-label">Name</label>
+                        <input type="text" required class="form-control" name="bookName" id="bookName" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" class="form-control" name="author" id="author" placeholder="">
+                    </div>
+                    <input type="submit" class="btn btn-outline-dark">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        let currentSection = ''
+        document.querySelectorAll('.add-btn').forEach((button) => {
+            button.addEventListener('click', (e) => {
+                document.querySelector('.add-form').classList.remove('remove');
+                console.log(e.target.id);
+                // document.getElementById('section').setAttribute('value',e.target.id )
+                console.log(button.dataset.section);
+                currentSection = button.dataset.section
+                document.getElementById('section').setAttribute('value', currentSection);
+                console.log(currentSection)
+                // console.log(currentSection);
+            })
+        })
+
+        document.querySelector('#cross-btn').addEventListener('click', () => {
+            document.querySelector('.add-form').classList.add('remove')
+        })
+       
+    </script>
+</body>
+
+</html>
